@@ -8,4 +8,6 @@
     <string name="go_forward">Go Forward</string>
     <string name="search_or_enter_url">Search or enter URL</string>
     <string name="refresh_stop">Refresh/Stop</string>
+    <string name="clear_history">Clear History</string>
+    <string name="incognito_mode">Incognito Mode</string>
 </resources>

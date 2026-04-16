@@ -1,7 +1,14 @@
 # 🐦 Kingfisher Browser
 
-A lightweight, privacy-focused Android browser built using Java and WebView.
-Kingfisher Browser is designed for secure, minimal, and distraction-free browsing with a strong focus on user privacy and clean architecture.
+![Platform](https://img.shields.io/badge/Platform-Android-green?style=flat-square)
+![Language](https://img.shields.io/badge/Language-Java-blue?style=flat-square)
+![Min SDK](https://img.shields.io/badge/Min%20SDK-24-orange?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=flat-square)
+
+A **lightweight, privacy-focused Android browser** built with Java and WebView.
+
+Kingfisher Browser is designed to deliver a **secure, minimal, and distraction-free browsing experience**, with a strong emphasis on privacy, performance, and clean architecture.
 
 ---
 
@@ -9,38 +16,27 @@ Kingfisher Browser is designed for secure, minimal, and distraction-free browsin
 
 ### 🔐 Privacy First
 
-* Incognito browsing by default
-* No history tracking
+* Incognito mode by default
+* No browsing history storage
 * No form or password saving
-* Cookies cleared automatically
-* Cache disabled for maximum privacy
+* Automatic cookie clearing
+* Cache disabled for private sessions
 
-### 🛡️ Security
+### 🛡️ Security Enhancements
 
-* HTTPS-first browsing
-* Blocks unsafe URL schemes
-* Restricted file and content access
+* HTTPS-first browsing enforcement
+* Blocking of unsafe URL schemes
+* Restricted file/content access
 * Secure WebView configuration
-* Protection against basic phishing/tracking URLs
+* Basic phishing and tracking protection
 
 ### 🌐 Core Browser Features
 
-* Fast and lightweight WebView engine
-* Address bar with direct URL/search support
+* Lightweight WebView-based engine
+* Smart address bar (URL + search support)
 * Back / Forward navigation
-* Page refresh support
-* Minimal and clean UI
-
----
-
-## 📱 Screenshots
-
-> *(Add your app screenshots here)*
-
-```
-docs/screenshots/home.png
-docs/screenshots/browser.png
-```
+* Page refresh / stop loading control
+* Clean and minimal UI design
 
 ---
 
@@ -48,21 +44,22 @@ docs/screenshots/browser.png
 
 * **Language:** Java
 * **Platform:** Android
-* **Core Engine:** WebView
+* **Core Engine:** Android WebView
 * **IDE:** Android Studio
+* **Architecture:** Modular (UI / Web / Utils / Security)
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 com.nazmul.kingfisher
 │
-├── ui/                # Activities & UI components
-├── web/               # WebView & browser engine logic
-├── data/              # History, bookmarks (future)
-├── security/          # Privacy & security handlers
-├── utils/             # Helper classes & constants
+├── ui/          → Activities, UI components
+├── web/         → WebView engine & browser logic
+├── data/        → History, bookmarks (planned)
+├── security/    → Privacy & security handlers
+├── utils/       → Helper classes & utilities
 ```
 
 ---
@@ -74,28 +71,27 @@ com.nazmul.kingfisher
 * Android Studio (latest recommended)
 * Android SDK 24+
 
-### ▶️ Steps
-
-1. Clone the repository:
+### ▶️ Setup Steps
 
 ```bash
 git clone https://github.com/nazmul-1117/kingfisher-browser.git
 ```
 
-2. Open in Android Studio
-
-3. Build and run on emulator or device
+1. Open the project in **Android Studio**
+2. Sync Gradle dependencies
+3. Build and run on emulator or physical device
 
 ---
 
-## 🔐 Privacy Design
+## 🔐 Privacy Philosophy
 
-Kingfisher Browser is built with a **privacy-by-default philosophy**:
+Kingfisher Browser follows a **privacy-by-design approach**:
 
-* No user data is stored locally
-* No analytics or tracking libraries are used
-* All browsing sessions are temporary
-* Cookies and cache are cleared automatically
+* No user tracking or analytics
+* No data collection or external logging
+* Temporary browsing sessions only
+* Automatic clearing of cookies and cache
+* Fully offline-capable core behavior
 
 ---
 
@@ -103,64 +99,67 @@ Kingfisher Browser is built with a **privacy-by-default philosophy**:
 
 ### ✅ Current
 
-* Basic WebView browser
-* Secure browsing configuration
-* Incognito mode
+* WebView-based browser engine
+* HTTPS-first security configuration
+* Incognito browsing mode foundation
 
 ### 🔜 Upcoming
 
 * Tab management system
 * Bookmark manager
-* Ad-blocking (basic filter engine)
-* Dark mode UI
 * Custom homepage
-* Enhanced URL filtering
+* Dark mode UI
+* Basic ad/tracker blocking
 
 ---
 
-## 🧪 Future Improvements
+## 🧪 Future Enhancements
 
-* Tracker blocking (EasyList integration)
+* Advanced tracker blocking (EasyList integration)
 * Encrypted local storage
-* Proxy / VPN support
-* Advanced security controls
-* GeckoView (Firefox engine) migration (optional)
+* Download manager
+* Proxy/VPN support (experimental)
+* GeckoView engine migration (optional advanced upgrade)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome!
+Contributions are welcome and appreciated.
 
-If you'd like to improve Kingfisher Browser:
+### Steps to contribute:
 
 1. Fork the repository
-2. Create a new branch
+2. Create a feature branch
+
+   ```bash
+   git checkout -b feature-name
+   ```
 3. Commit your changes
-4. Open a Pull Request
+4. Push and open a Pull Request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
-See the `LICENSE` file for details.
+This project is licensed under the **MIT License**.
+See the [`LICENSE`](LICENSE) file for details.
 
 ---
 
 ## 👨‍💻 Author
 
-**Md. Nazmul Hossain**\
+**Md. Nazmul Hossain**
 GitHub: [https://github.com/nazmul-1117](https://github.com/nazmul-1117)
 
 ---
 
 ## ⭐ Support
 
-If you like this project, consider giving it a star ⭐ on GitHub!
+If you find this project useful, consider giving it a ⭐ on GitHub — it helps the project grow.
 
 ---
 
 ## 📌 Note
 
-This is a learning-focused project aimed at building a secure and private browsing experience on Android. It is not intended to replace full-scale production browsers.
+This project is built for **learning and experimentation purposes**, focusing on Android browser development, WebView architecture, and privacy-first design principles.

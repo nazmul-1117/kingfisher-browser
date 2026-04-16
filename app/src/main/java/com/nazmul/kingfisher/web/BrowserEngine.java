@@ -7,11 +7,19 @@ import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import com.nazmul.kingfisher.security.PrivacyManager;
 import com.nazmul.kingfisher.utils.UrlUtils;
+import com.nazmul.kingfisher.data.HistoryManager;
 
 public class BrowserEngine {
     private final WebView webView;
     private BrowserEngineCallback callback;
+
+    // Add to fields:
+    private PrivacyManager privacyManager;
+    private HistoryManager historyManager;
+
 
     /** Callback interface to keep MainActivity thin and decoupled */
     public interface BrowserEngineCallback {
@@ -21,8 +29,11 @@ public class BrowserEngine {
         void onNavStateChanged(boolean canBack, boolean canForward);
     }
 
-    public BrowserEngine(Context context, WebView webView) {
+    // Update constructor:
+    public BrowserEngine(Context context, WebView webView, PrivacyManager privacyManager, HistoryManager historyManager) {
         this.webView = webView;
+        this.privacyManager = privacyManager;
+        this.historyManager = historyManager;
         initializeWebView(context.getApplicationContext());
     }
 
@@ -46,17 +57,7 @@ public class BrowserEngine {
 
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, false);
 
-        // 🔒 Security + UI State Callbacks
         webView.setWebViewClient(new SecureWebViewClient() {
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                if (callback != null) {
-                    callback.onLoadingStateChanged(true);
-                    callback.onProgressChanged(0);
-                }
-            }
-
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -65,6 +66,11 @@ public class BrowserEngine {
                     callback.onLoadingStateChanged(false);
                     callback.onProgressChanged(100);
                     callback.onNavStateChanged(view.canGoBack(), view.canGoForward());
+                }
+                // 📝 Save history ONLY if not incognito
+                if (!privacyManager.isIncognito()) {
+                    String title = view.getTitle();
+                    historyManager.saveHistory(url, title != null ? title : url, null);
                 }
             }
         });
@@ -94,7 +100,11 @@ public class BrowserEngine {
     public boolean canGoForward() { return webView.canGoForward(); }
     public String getCurrentUrl() { return webView.getUrl(); }
 
+    // Add to destroy():
     public void destroy() {
+        if (privacyManager != null) {
+            privacyManager.clearWebViewCache(webView);
+        }
         webView.removeAllViews();
         webView.destroy();
     }
