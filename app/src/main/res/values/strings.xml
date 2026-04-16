@@ -4,4 +4,8 @@
     <string name="forward">forward_button</string>
     <string name="gobutton">go_button</string>
     <string name="url">Search or enter URL</string>
+    <string name="go_back">Go Back</string>
+    <string name="go_forward">Go Forward</string>
+    <string name="search_or_enter_url">Search or enter URL</string>
+    <string name="refresh_stop">Refresh/Stop</string>
 </resources>
