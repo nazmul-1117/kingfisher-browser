@@ -1,5 +1,6 @@
 package com.nazmul.kingfisher.ui.activities;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -194,8 +195,17 @@ public class MainActivity extends AppCompatActivity implements BrowserEngine.Bro
         MaterialCardView card = findViewById(R.id.card_address_bar);
 
         if (card != null) {
-            int color = incognito ? 0xFF2D2D2D : 0xFFFFFFFF;
-            card.setCardBackgroundColor(color);
+            int bgColor = incognito ? 0xFF2D2D2D : 0xFFFFFFFF;
+            int textColor = incognito ? 0xFFFFFFFF : 0xFF040404;
+
+            etAddressBar.setTextColor(textColor);
+
+            ColorStateList tint = ColorStateList.valueOf(textColor);
+            btnForward.setImageTintList(tint);
+            btnBack.setImageTintList(tint);
+            btnRefresh.setImageTintList(tint);
+
+            card.setCardBackgroundColor(bgColor);
         }
     }
 

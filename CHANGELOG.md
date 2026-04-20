@@ -1,3 +1,38 @@
+## [1.0.0] - 20-04-2026
+
+### ✨ Added
+
+* First stable release of Kingfisher Browser
+* Application launcher icon with adaptive icon support
+* URL loader system for improved page loading handling
+* Basic browser navigation system (back, forward, refresh)
+* Core WebView-based browsing engine implementation
+* Initial privacy-first browsing foundation (incognito-oriented design)
+
+### 🔧 Improved
+
+* Fixed app icon rendering and scaling across different Android devices
+* Improved URL loading behavior for smoother navigation experience
+* Enhanced WebView initialization stability on app launch
+* Optimized UI layout consistency for address bar and controls
+* Better handling of page reload and navigation state updates
+
+### 🐛 Fixed
+
+* Resolved incorrect or missing app icon display issues
+* Fixed URL loading failures in certain web pages
+* Fixed minor UI inconsistencies in browser toolbar
+* Fixed initial launch loading behavior issues
+
+### 🛡️ Security Enhancements
+
+* Strengthened WebView security configuration (safe browsing baseline)
+* Disabled unsafe file/content access in WebView
+* Improved isolation of browsing session behavior for better privacy foundation
+
+---
+
+
 ## [0.4.0] - 16-04-2026
 
 ### ✨ Added

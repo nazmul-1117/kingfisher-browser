@@ -86,9 +86,9 @@ public class BrowserEngine {
         });
     }
 
-    public void loadUrl(String url) {
-        String safeUrl = UrlUtils.normalizeUrl(url);
-        webView.loadUrl(safeUrl);
+    public void loadUrl(String input) {
+        String finalUrl = UrlUtils.normalizeInput(input);
+        webView.loadUrl(finalUrl);
     }
 
     public void goBack() { if (webView.canGoBack()) webView.goBack(); }

@@ -1,39 +1,66 @@
+# =========================
 # Gradle
+# =========================
 .gradle/
 build/
 **/build/
 
-# Local config (SDK path, etc.)
+# =========================
+# Local config (SDK paths)
+# =========================
 local.properties
 
-# IDE (Android Studio / IntelliJ)
+# =========================
+# Android Studio / IntelliJ
+# =========================
 .idea/
 *.iml
+*.iws
+*.ipr
 
+# =========================
 # OS files
+# =========================
 .DS_Store
 Thumbs.db
 
-# Android Studio generated
+# =========================
+# Android generated files
+# =========================
 captures/
 .externalNativeBuild/
 .cxx/
+obj/
 
+# =========================
 # Logs
+# =========================
 *.log
 
-# Keystore files (IMPORTANT for open source)
+# =========================
+# Keystore (VERY IMPORTANT 🔒)
+# =========================
 *.jks
 *.keystore
 
-# Google Services (if used)
+# =========================
+# Firebase / Google Services
+# =========================
 google-services.json
-
-# Firebase / Crashlytics (optional)
 firebase.json
 
-# NDK (optional)
-obj/
+# =========================
+# Build outputs
+# =========================
+app/build/
+build/
 
-# Manual
+# APK / AAB outputs
+*.apk
+*.aab
+
+# =========================
+# Custom folders (your choice)
+# =========================
 readme-files/
+release/

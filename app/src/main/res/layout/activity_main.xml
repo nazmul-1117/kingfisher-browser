@@ -39,13 +39,16 @@
 
                 <ImageButton
                     android:id="@+id/btn_back"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/go_back"
-                    android:src="@android:drawable/ic_menu_revert"
-                    app:tint="#5F6368"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    android:src="@drawable/baseline_arrow_back_24"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:stateListAnimator="@animator/button_press"
+                    app:tint="#5F6368" />
 
                 <ImageButton
                     android:id="@+id/btn_forward"
@@ -54,7 +57,7 @@
                     android:layout_marginStart="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/go_forward"
-                    android:src="@android:drawable/ic_media_next"
+                    android:src="@drawable/outline_arrow_forward_24"
                     app:tint="#5F6368" />
 
                 <EditText
@@ -69,16 +72,21 @@
                     android:importantForAutofill="noExcludeDescendants"
                     android:inputType="textUri"
                     android:singleLine="true"
+                    android:textColor="#040404"
                     android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/btn_refresh"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="4dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/refresh_stop"
-                    android:src="@android:drawable/ic_popup_sync"
-                    app:tint="#5F6368" />
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_refresh_24"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
