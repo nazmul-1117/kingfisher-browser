@@ -21,7 +21,6 @@ class GeckoEngine(
     private var session: GeckoSession? = null
 
     init {
-
         val contentBlockingSettings = ContentBlocking.Settings.Builder()
             .cookieBehavior(ContentBlocking.CookieBehavior.ACCEPT_NON_TRACKERS)
             .build()
@@ -61,6 +60,7 @@ class GeckoEngine(
 
         privacyManager.applyToSession(session)
 
+        // Navigation (URL changes)
         session.navigationDelegate = object : GeckoSession.NavigationDelegate {
 
             override fun onLoadRequest(
@@ -77,7 +77,6 @@ class GeckoEngine(
                     return GeckoResult.fromValue(AllowOrDeny.DENY)
                 }
 
-                // HTTPS upgrade redirect
                 if (secureUrl != originalUrl) {
                     session.loadUri(secureUrl)
                     return GeckoResult.fromValue(AllowOrDeny.DENY)
@@ -92,32 +91,38 @@ class GeckoEngine(
                 perms: MutableList<GeckoSession.PermissionDelegate.ContentPermission>,
                 hasUserGesture: Boolean
             ) {
-                _state.value = _state.value.copy(currentUrl = url)
+                _state.value = _state.value.copy(
+                    currentUrl = url
+                )
+            }
+
+            // ✅ THIS FIXES BACK/FORWARD STATE
+            override fun onCanGoBack(session: GeckoSession, canGoBack: Boolean) {
+                _state.value = _state.value.copy(canGoBack = canGoBack)
+            }
+
+            override fun onCanGoForward(session: GeckoSession, canGoForward: Boolean) {
+                _state.value = _state.value.copy(canGoForward = canGoForward)
             }
         }
 
+        // Page title
         session.contentDelegate = object : GeckoSession.ContentDelegate {
-
             override fun onTitleChange(session: GeckoSession, title: String?) {
                 _state.value = _state.value.copy(title = title)
             }
         }
 
+        // Loading progress
         session.progressDelegate = object : GeckoSession.ProgressDelegate {
 
-            override fun onProgressChange(
-                session: GeckoSession,
-                progress: Int
-            ) {
+            override fun onProgressChange(session: GeckoSession, progress: Int) {
                 _state.value = _state.value.copy(
                     isLoading = progress in 1..99
                 )
             }
 
-            override fun onPageStop(
-                session: GeckoSession,
-                success: Boolean
-            ) {
+            override fun onPageStop(session: GeckoSession, success: Boolean) {
                 _state.value = _state.value.copy(isLoading = false)
             }
         }
@@ -131,13 +136,21 @@ class GeckoEngine(
         session?.loadUri(url)
     }
 
-    fun reload() = session?.reload()
+    fun reload() {
+        session?.reload()
+    }
 
-    fun goBack() = session?.goBack()
+    fun goBack() {
+        session?.goBack()
+    }
 
-    fun goForward() = session?.goForward()
+    fun goForward() {
+        session?.goForward()
+    }
 
-    fun stop() = session?.stop()
+    fun stop() {
+        session?.stop()
+    }
 
     fun getSession(): GeckoSession =
         session ?: error("GeckoSession not initialized")
@@ -175,13 +188,9 @@ class GeckoEngine(
     // ---------------------------
     // LIFECYCLE
     // ---------------------------
-    fun onPause() {
-        // no-op in most GeckoView versions
-    }
+    fun onPause() {}
 
-    fun onResume() {
-        // no-op in most GeckoView versions
-    }
+    fun onResume() {}
 
     fun onDestroy() {
         session?.close()
