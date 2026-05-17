@@ -5,44 +5,43 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.kingfisher.browser.browser.engine.GeckoEngine
-import com.kingfisher.browser.ui.screens.BrowserScreen
+import androidx.compose.ui.tooling.preview.Preview
 import com.kingfisher.browser.ui.theme.KingfisherBrowserTheme
-import com.kingfisher.browser.ui.viewmodels.BrowserViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         enableEdgeToEdge()
-
-        // 1. Create engine FIRST
-        val engine = GeckoEngine(applicationContext)
-
-        // 2. IMPORTANT: initialize Gecko BEFORE UI uses it
-        engine.init()
-
         setContent {
-
             KingfisherBrowserTheme {
-
-                // 3. ViewModel
-                val viewModel: BrowserViewModel = viewModel(
-                    factory = object : ViewModelProvider.Factory {
-                        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                            return BrowserViewModel(engine) as T
-                        }
-                    }
-                )
-
-                // 4. UI
-                BrowserScreen(viewModel = viewModel)
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Greeting(
+                        name = "Android",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    KingfisherBrowserTheme {
+        Greeting("Android")
     }
 }
