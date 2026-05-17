@@ -19,7 +19,8 @@ fun BottomNavigationBar(
     canGoBack: Boolean,
     canGoForward: Boolean,
     onBack: () -> Unit,
-    onForward: () -> Unit
+    onForward: () -> Unit,
+    onMenuClick: () -> Unit
 ) {
     Surface(
         tonalElevation = 1.dp,
@@ -134,7 +135,7 @@ fun BottomNavigationBar(
                 }
 
                 IconButton(
-                    onClick = { /* menu */ },
+                    onClick = onMenuClick,
                     modifier = Modifier.size(40.dp)
                 ) {
                     Icon(

@@ -13,7 +13,10 @@ import com.kingfisher.browser.ui.components.BottomNavigationBar
 import com.kingfisher.browser.ui.components.BrowserProgressBar
 import com.kingfisher.browser.ui.components.TopAddressBar
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import com.kingfisher.browser.ui.components.MenuSheet
 
 @Composable
 fun BrowserScreen(
@@ -28,24 +31,56 @@ fun BrowserScreen(
 ) {
 
     var isSearchMode by remember { mutableStateOf(false) }
+    var isMenuOpen by remember { mutableStateOf(false) }
 
     val bottomBarAlpha by animateFloatAsState(
         targetValue = if (isSearchMode) 0f else 1f,
         label = ""
     )
 
-    val webContentAlpha by animateFloatAsState(
+    val webScale by animateFloatAsState(
+        targetValue = if (isSearchMode) 0.98f else 1f,
+        label = ""
+    )
+
+    val webAlpha by animateFloatAsState(
         targetValue = if (isSearchMode) 0.2f else 1f,
         label = ""
     )
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface)
+            .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
 
-        // 🔥 TOP ADDRESS BAR (EXPANDS INTO SEARCH MODE)
+        // 🌐 WEB CONTENT (BOTTOM LAYER)
+        AndroidView(
+            factory = { ctx ->
+                org.mozilla.geckoview.GeckoView(ctx).apply {
+                    setSession(engine.getSession())
+                }
+            },
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    alpha = webAlpha
+                    scaleX = webScale
+                    scaleY = webScale
+                }
+        )
+
+        // 🌑 DIM OVERLAY (SEARCH OR MENU)
+        if (isSearchMode || isMenuOpen) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.4f))
+            )
+        }
+
+        // 🔝 TOP ADDRESS BAR (FLOATING)
         TopAddressBar(
             modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
             url = state.currentUrl ?: "",
@@ -59,35 +94,10 @@ fun BrowserScreen(
             }
         )
 
-        // 🔥 PROGRESS BAR
-        BrowserProgressBar(
-            isLoading = state.isLoading,
-            progress = state.progress
-        )
-
-        // 🔥 WEB CONTENT (DIM WHEN SEARCH MODE)
+        // ⬇️ BOTTOM BAR (FLOATING, NO LAYOUT SHIFT)
         Box(
             modifier = Modifier
-                .weight(1f)
-                .graphicsLayer {
-                    alpha = webContentAlpha
-                    scaleX = if (isSearchMode) 0.98f else 1f
-                    scaleY = if (isSearchMode) 0.98f else 1f
-                }
-        ) {
-            AndroidView(
-                factory = { ctx ->
-                    org.mozilla.geckoview.GeckoView(ctx).apply {
-                        setSession(engine.getSession())
-                    }
-                },
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-
-        // 🔥 BOTTOM BAR (HIDES IN SEARCH MODE)
-        Box(
-            modifier = Modifier
+                .align(Alignment.BottomCenter)
                 .graphicsLayer {
                     alpha = bottomBarAlpha
                     translationY = if (isSearchMode) 100f else 0f
@@ -97,16 +107,27 @@ fun BrowserScreen(
                 canGoBack = state.canGoBack,
                 canGoForward = state.canGoForward,
                 onBack = onBack,
-                onForward = onForward
+                onForward = onForward,
+                onMenuClick = { isMenuOpen = true }
+            )
+        }
+
+        // 🍔 MENU SHEET (TOP LAYER)
+        if (isMenuOpen) {
+            MenuSheet(
+                onClose = { isMenuOpen = false }
             )
         }
     }
+
+    // 🔙 SYSTEM BACK HANDLER (CHROME-LIKE BEHAVIOR)
     BackHandler(enabled = true) {
         when {
+            isMenuOpen -> isMenuOpen = false
+            isSearchMode -> isSearchMode = false
             state.canGoBack -> onBack()
-            isSearchMode -> isSearchMode = false // close search first
             else -> {
-                // allow system to exit app
+                // allow system exit
             }
         }
     }
