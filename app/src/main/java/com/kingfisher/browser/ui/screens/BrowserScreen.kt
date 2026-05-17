@@ -11,7 +11,10 @@ import com.kingfisher.browser.browser.engine.GeckoEngine
 import com.kingfisher.browser.ui.components.BottomNavigationBar
 import com.kingfisher.browser.ui.components.BrowserProgressBar
 import com.kingfisher.browser.ui.components.TopAddressBar
-import com.kingfisher.browser.ui.theme.SurfaceDark
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import kotlin.math.abs
+import androidx.activity.compose.BackHandler
 
 @Composable
 fun BrowserScreen(
@@ -45,11 +48,38 @@ fun BrowserScreen(
             progress = state.progress
         )
 
-        Box(Modifier.weight(1f)) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .pointerInput(Unit) {
+
+                    var totalDragX = 0f
+
+                    detectHorizontalDragGestures(
+                        onDragEnd = {
+                            val threshold = 150f
+
+                            when {
+                                totalDragX > threshold -> {
+                                    onBack()
+                                }
+                                totalDragX < -threshold -> {
+                                    onForward()
+                                }
+                            }
+
+                            totalDragX = 0f
+                        },
+                        onHorizontalDrag = { change, dragAmount ->
+                            change.consume()
+                            totalDragX += dragAmount
+                        }
+                    )
+                }
+        ) {
             AndroidView(
                 factory = { ctx ->
                     org.mozilla.geckoview.GeckoView(ctx).apply {
-                        setBackgroundColor(android.graphics.Color.TRANSPARENT)
                         setSession(engine.getSession())
                     }
                 },
@@ -63,5 +93,14 @@ fun BrowserScreen(
             onBack = onBack,
             onForward = onForward
         )
+    }
+    BackHandler(enabled = true) {
+        when {
+            state.canGoBack -> onBack()
+            else -> {
+                // optional: show "exit app" or do nothing
+                // system will exit naturally
+            }
+        }
     }
 }

@@ -1,6 +1,9 @@
 package com.kingfisher.browser.ui.components
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -11,11 +14,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.*
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.kingfisher.browser.ui.theme.AccentCyan
+
 
 @Composable
 fun TopAddressBar(
@@ -28,15 +34,37 @@ fun TopAddressBar(
     onReload: () -> Unit
 ) {
     var input by rememberSaveable { mutableStateOf(url) }
+    var isFocused by remember { mutableStateOf(false) }
+
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(url) {
         input = url
     }
 
+    // ✨ Chrome-like animations
+    val shape by animateDpAsState(
+        targetValue = if (isFocused) 28.dp else 18.dp,
+        label = ""
+    )
+
+    val elevation by animateDpAsState(
+        targetValue = if (isFocused) 6.dp else 0.dp,
+        label = ""
+    )
+
+    val scale by animateFloatAsState(
+        targetValue = if (isFocused) 1.02f else 1f,
+        label = ""
+    )
+
     Surface(
-        modifier = modifier,
-        tonalElevation = 0.dp, // ✅ IMPORTANT FIX (removes cyan tint)
+        modifier = modifier.graphicsLayer {
+            scaleX = scale
+            scaleY = scale
+        },
+        shape = RoundedCornerShape(shape),
+        tonalElevation = elevation,
         color = MaterialTheme.colorScheme.surface
     ) {
 
@@ -64,12 +92,17 @@ fun TopAddressBar(
                     input = it
                     onInputChange(it)
                 },
-                modifier = Modifier.weight(1f),
+
+                modifier = Modifier
+                    .weight(1f)
+                    .onFocusChanged {
+                        isFocused = it.isFocused
+                    },
 
                 placeholder = {
                     Text(
                         "Search or address",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant // ✅ FIX
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
 
@@ -84,8 +117,8 @@ fun TopAddressBar(
 
                     cursorColor = AccentCyan,
 
-                    focusedTextColor = MaterialTheme.colorScheme.onSurface,   // ❌ FIXED
-                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface  // ❌ FIXED
+                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface
                 ),
 
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
