@@ -12,6 +12,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.kingfisher.browser.browser.engine.EngineState
 import com.kingfisher.browser.browser.engine.GeckoEngine
 import com.kingfisher.browser.ui.components.BottomNavigationBar
+import com.kingfisher.browser.ui.components.BrowserProgressBar
 import com.kingfisher.browser.ui.components.TopAddressBar
 import com.kingfisher.browser.ui.components.MenuSheet
 
@@ -36,15 +37,14 @@ fun BrowserScreen(
             .background(MaterialTheme.colorScheme.surface)
     ) {
 
-        // 📦 MAIN LAYOUT (FIXED INSETS HERE)
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .statusBarsPadding()        // ✅ FIX: prevents overlap with clock/wifi
-                .navigationBarsPadding()    // ✅ FIX: prevents bottom system overlap
+                .statusBarsPadding()
+                .navigationBarsPadding()
         ) {
 
-            // 🔝 TOP ADDRESS BAR (SAFE NOW)
+            // 🔝 TOP BAR
             TopAddressBar(
                 modifier = Modifier.fillMaxWidth(),
                 url = state.currentUrl ?: "",
@@ -58,7 +58,13 @@ fun BrowserScreen(
                 }
             )
 
-            // 🌐 WEB CONTENT (TAKES REMAINING SPACE)
+            // 🔥 PROGRESS BAR (✅ THIS WAS MISSING)
+            BrowserProgressBar(
+                isLoading = state.isLoading,
+                progress = state.progress
+            )
+
+            // 🌐 WEB VIEW
             AndroidView(
                 factory = { ctx ->
                     org.mozilla.geckoview.GeckoView(ctx).apply {
@@ -71,7 +77,7 @@ fun BrowserScreen(
             )
         }
 
-        // 🌑 OVERLAY (SEARCH / MENU DIM)
+        // 🌑 OVERLAY
         if (isSearchMode || isMenuOpen) {
             Box(
                 modifier = Modifier
@@ -80,7 +86,7 @@ fun BrowserScreen(
             )
         }
 
-        // ⬇️ BOTTOM NAV BAR
+        // ⬇️ BOTTOM BAR
         Box(
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
@@ -93,7 +99,7 @@ fun BrowserScreen(
             )
         }
 
-        // 🍔 MENU SHEET
+        // 🍔 MENU
         if (isMenuOpen) {
             MenuSheet(
                 onClose = { isMenuOpen = false }

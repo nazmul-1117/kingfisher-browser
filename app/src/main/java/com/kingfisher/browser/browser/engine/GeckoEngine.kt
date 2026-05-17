@@ -118,12 +118,16 @@ class GeckoEngine(
 
             override fun onProgressChange(session: GeckoSession, progress: Int) {
                 _state.value = _state.value.copy(
+                    progress = progress,
                     isLoading = progress in 1..99
                 )
             }
 
             override fun onPageStop(session: GeckoSession, success: Boolean) {
-                _state.value = _state.value.copy(isLoading = false)
+                _state.value = _state.value.copy(
+                    progress = 100,
+                    isLoading = false
+                )
             }
         }
     }

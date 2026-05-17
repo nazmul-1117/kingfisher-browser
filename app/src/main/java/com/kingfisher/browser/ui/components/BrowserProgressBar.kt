@@ -13,12 +13,16 @@ fun BrowserProgressBar(
     isLoading: Boolean,
     progress: Int
 ) {
-    LinearProgressIndicator(
-        progress = { if (isLoading) progress / 100f else 0f },
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(3.dp),
-        color = AccentCyan,
-        trackColor = Color.Transparent
-    )
+    val safeProgress = (progress / 100f).coerceIn(0f, 1f)
+
+    if (isLoading) {
+        LinearProgressIndicator(
+            progress = { safeProgress },   // ✅ NEW REQUIRED LAMBDA FORM
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(3.dp),
+            color = AccentCyan,
+            trackColor = Color.Transparent
+        )
+    }
 }

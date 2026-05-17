@@ -1,3 +1,6 @@
+import java.io.ByteArrayOutputStream
+import java.io.File
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -14,8 +17,10 @@ android {
         applicationId = "com.kingfisher.browser"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+
+        // Configuration-cache safe versioning
+        versionCode = getGitCommitCount()
+        versionName = getGitVersionName()
     }
 
     compileOptions {
@@ -27,15 +32,73 @@ android {
         jvmTarget = "17"
     }
 
-    // Add this block right here:
+    buildFeatures {
+        compose = true // Required to enable Compose tooling/features
+    }
+
     packaging {
         jniLibs {
-            // GeckoView's native libraries shouldn't be stripped or compressed
-            // irregularly; this prevents common native runtime crashes.
-            useLegacyPackaging = true
+            useLegacyPackaging = true // Kept for GeckoView compatibility
         }
     }
 }
+
+/* ========================================================
+   GIT VERSIONING FUNCTIONS (Configuration Cache Compliant)
+   ======================================================== */
+
+fun getGitCommitCount(): Int {
+    return providers.exec {
+        commandLine("git", "rev-list", "--count", "HEAD")
+    }.standardOutput.asText.map { it.trim().toIntOrNull() ?: 1 }.getOrElse(1)
+}
+
+fun getGitVersionName(): String {
+    return try {
+
+        val baseVersion = "3.0.0" // 👈 FORCE START VERSION
+
+        val tagProcess = ProcessBuilder(
+            "git",
+            "describe",
+            "--tags",
+            "--abbrev=0"
+        ).start()
+
+        val tagOutput = tagProcess.inputStream.bufferedReader().readText().trim()
+        tagProcess.waitFor()
+
+        val latestTag = if (tagOutput.isNotEmpty()) tagOutput else baseVersion
+
+        val baseParts = latestTag.split(".").map { it.toIntOrNull() ?: 0 }
+
+        val major = baseParts.getOrElse(0) { 3 }
+        val minor = baseParts.getOrElse(1) { 0 }
+        val patch = baseParts.getOrElse(2) { 0 }
+
+        val countProcess = ProcessBuilder(
+            "git",
+            "rev-list",
+            "$latestTag..HEAD",
+            "--count"
+        ).start()
+
+        val commitsAfterTag = countProcess.inputStream.bufferedReader()
+            .readText()
+            .trim()
+            .toIntOrNull() ?: 0
+
+        countProcess.waitFor()
+
+        val finalPatch = patch + commitsAfterTag
+
+        "$major.$minor.$finalPatch"
+
+    } catch (e: Exception) {
+        "3.0.0" // 👈 IMPORTANT FALLBACK
+    }
+}
+
 
 dependencies {
     implementation(platform(libs.compose.bom))
@@ -54,17 +117,14 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.coil.compose)
 
+    implementation(libs.coil.compose)
     implementation(libs.kotlinx.coroutines.android)
 
+    // GeckoView Engine
     implementation(libs.geckoview)
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.core:core:1.13.1")
-
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-
 }
