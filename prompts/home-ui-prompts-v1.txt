@@ -1,0 +1,17 @@
+help me to make a android browser ui
+it should be modern, elegant, purplelish type ui with content:
+- top bar (addressbar)
+	- left side: search engine logo (5-10%)
+	- right side: modern address bar (remine part)
+- bottombar
+	- plus icon -> new tab creator
+	- bookmark icon -> save locally in phone (bookmark)
+	- ai icon -> chat with ai
+	- tab icon -> how many tabs are there, and how to switch
+	- menubar icon -> app main menubar
+
+constrain:
+- all icon should be modern
+- ui should be modern and flexible animation type
+- make a clean ui
+- color should be chooice based on kingfisher fish color
