@@ -31,7 +31,8 @@ fun TopAddressBar(
     onUrlSubmit: (String) -> Unit,
     onInputChange: (String) -> Unit,
     onHomeClick: () -> Unit,
-    onReload: () -> Unit
+    onReload: () -> Unit,
+    onFocusChange: (Boolean) -> Unit
 ) {
     var input by rememberSaveable { mutableStateOf(url) }
     var isFocused by remember { mutableStateOf(false) }
@@ -97,6 +98,7 @@ fun TopAddressBar(
                     .weight(1f)
                     .onFocusChanged {
                         isFocused = it.isFocused
+                        onFocusChange(it.isFocused) // ✅ ADD THIS HERE
                     },
 
                 placeholder = {
