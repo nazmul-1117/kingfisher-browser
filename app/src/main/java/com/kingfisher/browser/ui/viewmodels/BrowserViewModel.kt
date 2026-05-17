@@ -51,6 +51,10 @@ class BrowserViewModel @Inject constructor(
         engine.onDestroy()
     }
 
+    fun onShortcutClick(url: String) {
+        onUrlSubmit(url.trim())
+    }
+
     data class BrowserUiState(
         val screenMode: ScreenMode = ScreenMode.HOME,
         val engineState: EngineState = EngineState(),

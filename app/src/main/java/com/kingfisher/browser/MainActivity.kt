@@ -58,7 +58,8 @@ class MainActivity : ComponentActivity() {
 
                         BrowserViewModel.ScreenMode.HOME ->
                             HomeScreen(
-                                onSearch = viewModel::onUrlSubmit
+                                onSearch = viewModel::onUrlSubmit,
+                                onShortcutClick = viewModel::onShortcutClick
                             )
 
                         BrowserViewModel.ScreenMode.BROWSER ->

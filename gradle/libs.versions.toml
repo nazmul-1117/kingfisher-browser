@@ -7,6 +7,7 @@ ksp = "2.1.0-1.0.29"
 lifecycle = "2.8.7"
 coroutines = "1.8.1"
 geckoview-version = "142.0.20250811145442"
+coil = "2.7.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -37,3 +38,5 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
 geckoview = { group = "org.mozilla.geckoview", name = "geckoview-omni", version.ref = "geckoview-version" }
+
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
