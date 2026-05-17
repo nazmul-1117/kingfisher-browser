@@ -1,3 +1,70 @@
+## [3.0.0] - 17-05-2026
+
+### 🚀 Major Release – Full App Rebuild
+
+### ✨ Added
+
+* Complete rewrite of Kingfisher Browser using **Kotlin + Jetpack Compose**
+* Integrated **GeckoView engine** replacing traditional WebView for modern browsing performance
+* Fully redesigned UI with modern Compose-based architecture
+* New customizable top navigation bar (URL/search controls)
+* Redesigned bottom navigation system with improved usability
+* New loading progress indicator with smoother visual feedback
+* Updated application icon and refreshed branding system
+* Improved menu system with cleaner and more accessible layout
+* Enhanced URL handling and smart input parsing system
+
+---
+
+### 🔄 Changed
+
+* Migrated entire codebase from **Java → Kotlin**
+* Replaced XML-based UI system with **Jetpack Compose UI**
+* Replaced Android WebView engine with **Gecko engine (GeckoView)**
+* Refactored app architecture for better modularity and scalability
+* Improved navigation flow and state handling across the app
+* Redesigned UI components for consistency and modern UX patterns
+
+---
+
+### ⚡ Improved
+
+* Faster and smoother page rendering with Gecko engine
+* Better UI responsiveness using Compose reactive state system
+* Improved app startup performance and initialization flow
+* Enhanced navigation stability (back/forward/refresh behavior)
+* Optimized layout performance across different screen sizes
+* More stable URL loading and page transition handling
+
+---
+
+### 🧩 Internal Improvements
+
+* Clean architecture restructuring for long-term maintainability
+* Separated UI, engine, and logic layers more clearly
+* Improved state management for browser sessions
+* Better lifecycle handling for browser engine integration
+* Prepared foundation for future features (tabs, sync, extensions)
+
+---
+
+### 🛡️ Security Enhancements
+
+* Strengthened Gecko security configuration baseline
+* Improved browsing isolation and session safety
+* Enhanced protection against unsafe URL handling
+* Maintained privacy-first browsing foundation
+
+---
+
+### ⚠️ Breaking Changes
+
+* Entire architecture changed (Java WebView → Kotlin + GeckoView)
+* UI system fully migrated to Jetpack Compose (not XML-based anymore)
+* Internal browser engine replaced (WebView compatibility removed)
+
+---
+
 ## [1.0.0] - 20-04-2026
 
 ### ✨ Added

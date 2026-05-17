@@ -1,165 +1,211 @@
 # 🐦 Kingfisher Browser
 
 ![Platform](https://img.shields.io/badge/Platform-Android-green?style=flat-square)
-![Language](https://img.shields.io/badge/Language-Java-blue?style=flat-square)
-![Min SDK](https://img.shields.io/badge/Min%20SDK-24-orange?style=flat-square)
+![Language](https://img.shields.io/badge/Language-Kotlin-purple?style=flat-square)
+![UI](https://img.shields.io/badge/UI-Jetpack%20Compose-blue?style=flat-square)
+![Engine](https://img.shields.io/badge/Engine-GeckoView-orange?style=flat-square)
+![Min SDK](https://img.shields.io/badge/Min%20SDK-26-orange?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Active%20Development-yellow?style=flat-square)
 
-A **lightweight, privacy-focused Android browser** built with Java and WebView.
+A **modern, fast, and privacy-focused Android browser** built with **Kotlin, Jetpack Compose, and GeckoView engine**.
 
-Kingfisher Browser is designed to deliver a **secure, minimal, and distraction-free browsing experience**, with a strong emphasis on privacy, performance, and clean architecture.
+Kingfisher Browser is a **complete rebuild (v3.0.0)** designed for performance, modern UI experience, and privacy-first browsing.
 
 ---
 
-## 🚀 Features
+# 🚀 What’s New in v3.0.0
 
-### 🔐 Privacy First
+This is a **full rewrite of the app**, not just an update.
 
-* Incognito mode by default
-* No browsing history storage
-* No form or password saving
-* Automatic cookie clearing
-* Cache disabled for private sessions
+* 🔥 Java → Kotlin migration
+* 🎨 XML → Jetpack Compose UI
+* 🦊 WebView → GeckoView engine
+* ⚡ Fully redesigned browser architecture
+* 🎯 New UI/UX system (top bar, bottom bar, menus)
+* 📊 Improved loading progress system
+* 🧭 Better navigation and URL handling
 
-### 🛡️ Security Enhancements
+---
 
-* HTTPS-first browsing enforcement
-* Blocking of unsafe URL schemes
-* Restricted file/content access
-* Secure WebView configuration
-* Basic phishing and tracking protection
+# 🌐 Features
 
-### 🌐 Core Browser Features
+## 🔐 Privacy First
 
-* Lightweight WebView-based engine
-* Smart address bar (URL + search support)
+* Incognito-style browsing foundation
+* No unnecessary data tracking
+* Session-based browsing design
+* Secure cookie and cache handling
+* Privacy-focused architecture
+
+---
+
+## 🦊 Powerful Browsing Engine
+
+* GeckoView-based rendering engine
+* Faster and smoother page loading
+* Better modern web compatibility
+* Improved stability vs traditional WebView
+
+---
+
+## 🎨 Modern UI (Jetpack Compose)
+
+* Fully Compose-based UI system
+* Clean and modern interface
+* Redesigned top navigation bar
+* Improved bottom navigation controls
+* Smooth animations & transitions
+* Custom URL/search input bar
+* Lightweight progress indicator
+
+---
+
+## ⚡ Performance Improvements
+
+* Faster startup time
+* Reduced UI lag (Compose reactive system)
+* Optimized navigation flow
+* Better memory handling
+* Smoother scrolling and rendering
+
+---
+
+## 🧭 Browser Core Features
+
 * Back / Forward navigation
-* Page refresh / stop loading control
-* Clean and minimal UI design
+* Refresh / Stop loading control
+* Smart URL + search handling
+* Improved page state management
+* Enhanced menu system
 
 ---
 
-## 🧱 Tech Stack
+# 🧱 Tech Stack
 
-* **Language:** Java
+* **Language:** Kotlin
+* **UI:** Jetpack Compose
+* **Engine:** GeckoView (Firefox engine)
 * **Platform:** Android
-* **Core Engine:** Android WebView
-* **IDE:** Android Studio
-* **Architecture:** Modular (UI / Web / Utils / Security)
+* **Min SDK:** 26
+* **Architecture:** Modular (UI / Engine / Utils / Security)
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```text
-com.nazmul.kingfisher
+com.kingfisher.browser
 │
-├── ui/          → Activities, UI components
-├── web/         → WebView engine & browser logic
-├── data/        → History, bookmarks (planned)
-├── security/    → Privacy & security handlers
-├── utils/       → Helper classes & utilities
+├── ui/           → Compose UI screens & components
+├── engine/       → Gecko browser engine logic
+├── navigation/   → Navigation & state handling
+├── security/     → Privacy & security configuration
+├── utils/        → Helper utilities
 ```
 
 ---
 
-## ⚙️ Installation
+# ⚙️ Installation
 
-### 🔧 Requirements
+## 🔧 Requirements
 
 * Android Studio (latest recommended)
-* Android SDK 24+
+* Android SDK 26+
+* Kotlin + Compose support enabled
 
-### ▶️ Setup Steps
+---
+
+## ▶️ Setup
 
 ```bash
 git clone https://github.com/nazmul-1117/kingfisher-browser.git
 ```
 
-1. Open the project in **Android Studio**
-2. Sync Gradle dependencies
-3. Build and run on emulator or physical device
+1. Open in **Android Studio**
+2. Sync Gradle
+3. Run on emulator or physical device
 
 ---
 
-## 🔐 Privacy Philosophy
+# 🔐 Privacy Philosophy
 
-Kingfisher Browser follows a **privacy-by-design approach**:
+Kingfisher Browser is built with **privacy-first design principles**:
 
-* No user tracking or analytics
-* No data collection or external logging
-* Temporary browsing sessions only
-* Automatic clearing of cookies and cache
-* Fully offline-capable core behavior
-
----
-
-## 🛣️ Roadmap
-
-### ✅ Current
-
-* WebView-based browser engine
-* HTTPS-first security configuration
-* Incognito browsing mode foundation
-
-### 🔜 Upcoming
-
-* Tab management system
-* Bookmark manager
-* Custom homepage
-* Dark mode UI
-* Basic ad/tracker blocking
+* ❌ No user tracking
+* ❌ No analytics collection
+* ❌ No background data sending
+* ✅ Local session-based browsing
+* ✅ Secure engine configuration
+* ✅ Minimal permissions approach
 
 ---
 
-## 🧪 Future Enhancements
+# 🛣️ Roadmap
 
-* Advanced tracker blocking (EasyList integration)
+## ✅ Current (v3.0.0)
+
+* GeckoView engine integration
+* Jetpack Compose UI system
+* Modern navigation system
+* UI/architecture full rewrite
+
+---
+
+## 🔜 Upcoming Features
+
+* 📑 Tab management system
+* 🔖 Bookmark manager
+* 🏠 Custom homepage
+* 🌙 Dark mode improvements
+* 🚫 Basic ad/tracker blocking
+* ⬇ Download manager
+
+---
+
+## 🚀 Future Vision
+
+* Advanced tracker blocking (filter lists)
 * Encrypted local storage
-* Download manager
-* Proxy/VPN support (experimental)
-* GeckoView engine migration (optional advanced upgrade)
+* Sync system (optional)
+* Extension-like system (experimental)
+* Performance optimization layer
 
 ---
 
-## 🤝 Contributing
+# 🤝 Contributing
 
-Contributions are welcome and appreciated.
+Contributions are welcome!
 
-### Steps to contribute:
+## Steps:
 
-1. Fork the repository
-2. Create a feature branch
+```bash
+git checkout -b feature-name
+git commit -m "feat: add new feature"
+git push origin feature-name
+```
 
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes
-4. Push and open a Pull Request
+Then open a Pull Request.
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is licensed under the **MIT License**.
-See the [`LICENSE`](LICENSE) file for details.
+
+See [`LICENSE`](LICENSE) file for details.
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-**Md. Nazmul Hossain**
+**Md. Nazmul Hossain**\
 GitHub: [https://github.com/nazmul-1117](https://github.com/nazmul-1117)
 
 ---
 
-## ⭐ Support
+# ⭐ Support
 
-If you find this project useful, consider giving it a ⭐ on GitHub — it helps the project grow.
+If you like this project, consider starring ⭐ the repository — it helps a lot!
 
 ---
-
-## 📌 Note
-
-This project is built for **learning and experimentation purposes**, focusing on Android browser development, WebView architecture, and privacy-first design principles.
